@@ -69,7 +69,7 @@ export default function WorkLogView() {
     return (
         <>
             <VerticalLayout theme={"padding spacing"}
-                            className={"time-entry-list-view" + (drawerVisible ? " drawer-visible" : "")}>
+                            className={"work-log-view" + (drawerVisible ? " drawer-visible" : "")}>
                 <HorizontalLayout theme={"spacing"} style={{flexWrap: "wrap"}}>
                     <ComboBox
                         items={projects}
@@ -105,7 +105,8 @@ export default function WorkLogView() {
                     }}
                     refreshTrigger={refreshTrigger}
                 />
-                <WorkLogEntryDrawer className={"time-entry-drawer"} workLogEntryId={drawerEntryId} onCancel={onCancel}
+                <WorkLogEntryDrawer className={"work-log-entry-drawer"} workLogEntryId={drawerEntryId}
+                                    onCancel={onCancel}
                                     onSave={onSave}></WorkLogEntryDrawer>
             </VerticalLayout>
         </>
