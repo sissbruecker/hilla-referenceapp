@@ -20,20 +20,10 @@ export class LocalTime {
         this.seconds = seconds;
     }
 
-    secondsSinceMidnight(): number {
-        return 3600 * this.hours + 60 * this.minutes + this.seconds;
-    }
-
     isBefore(time: LocalTime): boolean {
         return this.hours < time.hours
             || this.hours == time.hours && this.minutes < time.minutes
             || this.hours == time.hours && this.minutes == time.minutes && this.seconds < time.seconds;
-    }
-
-    isEqualTo(time: LocalTime): boolean {
-        return this.hours == time.hours
-            && this.minutes == time.minutes
-            && this.seconds == time.seconds;
     }
 
     static parseString(timeString: string): LocalTime {
