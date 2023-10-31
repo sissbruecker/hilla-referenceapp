@@ -90,23 +90,23 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
         }
     }, [value.contractId]);
 
-    // Clear the combo boxes if their values are not among the items
+    // Clear the combo boxes if their values are not among the items (this is something that IMO should be handled by the combo box automatically).
 
     useEffect(() => {
         if (value.projectId != null && !projects.find((p) => p.id === value.projectId)) {
-            value.projectId = undefined;
+            projectField.setValue(undefined);
         }
     }, [projects]);
 
     useEffect(() => {
         if (value.contractId != null && !contracts.find((c) => c.id === value.contractId)) {
-            value.contractId = undefined;
+            contractField.setValue(undefined);
         }
     }, [contracts]);
 
     useEffect(() => {
         if (value.hourCategoryId != null && !categories.find((c) => c.id === value.hourCategoryId)) {
-            value.hourCategoryId = undefined;
+            hourCategoryField.setValue(undefined);
         }
     }, [categories]);
 
@@ -147,7 +147,8 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
                 helperText={contractHelper}
                 items={contracts}
                 itemLabelPath={"name"}
-                itemValuePath={"id"}/>
+                itemValuePath={"id"}
+            />
             <DatePicker
                 {...{colspan: 2}}
                 {...field(model.date)}

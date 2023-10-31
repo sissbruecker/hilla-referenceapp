@@ -58,6 +58,7 @@ export default function WorkLogView() {
     }
 
     function closeDrawer() {
+        setDrawerEntryId(undefined);
         setDrawerVisible(false);
         setSelection([]);
     }
@@ -93,7 +94,7 @@ export default function WorkLogView() {
                     service={WorkLog}
                     model={WorkLogListEntryDTOModel}
                     noHeaderFilters={true}
-                    visibleColumns={["project.name", "contract.name", "date", "startTime", "endTime", "description", "hourCategory.name"]}
+                    visibleColumns={["project", "contract", "date", "startTime", "endTime", "description", "hourCategory"]}
                     selectedItems={selection}
                     onActiveItemChanged={(e) => {
                         const item = e.detail.value;
@@ -107,7 +108,7 @@ export default function WorkLogView() {
                 />
                 <WorkLogEntryDrawer className={"work-log-entry-drawer"} workLogEntryId={drawerEntryId}
                                     onCancel={onCancel}
-                                    onSave={onSave}></WorkLogEntryDrawer>
+                                    onSave={onSave}/>
             </VerticalLayout>
         </>
     );
