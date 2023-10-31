@@ -43,12 +43,15 @@ class WorkLog implements ListService<WorkLogListEntryDTO> {
     public List<ContractReference> findContractsByProject(long projectId) {
         return projectRepository.findById(projectId).stream()
                 .flatMap(project -> contractRepository.findByProject(project).stream())
-                .map(ContractReference::fromEntity).toList();
+                .map(ContractReference::fromEntity)
+                .toList();
     }
 
     public List<HourCategoryReference> findHourCategoriesByContract(long contractId) {
-        var contract = contractRepository.getById(contractId);
-        return contract.getAllowedHourCategories().stream().map(HourCategoryReference::fromEntity).toList();
+        return contractRepository.findById(contractId).stream()
+                .flatMap(contract -> contract.getAllowedHourCategories().stream())
+                .map(HourCategoryReference::fromEntity)
+                .toList();
     }
 
     public WorkLogEntryFormDTO loadForm(long workLogEntryId) {
@@ -56,6 +59,10 @@ class WorkLog implements ListService<WorkLogListEntryDTO> {
     }
 
     public WorkLogEntryFormDTO saveForm(WorkLogEntryFormDTO form) {
+        if (form.description().contains("fail")) {
+            throw new RuntimeException("This is an unexpected error!"); // Used for testing the client side error handler
+        }
+
         // TODO Null checks
         WorkLogEntry entity;
         if (form.id() == null) {

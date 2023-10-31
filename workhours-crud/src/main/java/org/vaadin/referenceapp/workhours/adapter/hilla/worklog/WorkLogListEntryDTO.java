@@ -16,7 +16,7 @@ public record WorkLogListEntryDTO(
         LocalTime startTime,
         LocalTime endTime,
         @Nullable String description,
-        HourCategoryReference hourCategoryId
+        HourCategoryReference hourCategory
 ) {
 
     static WorkLogListEntryDTO fromEntity(WorkLogEntry entity) {
