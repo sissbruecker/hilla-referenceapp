@@ -59,7 +59,7 @@ class WorkLog implements ListService<WorkLogListEntryDTO> {
     }
 
     public WorkLogEntryFormDTO saveForm(WorkLogEntryFormDTO form) {
-        if (form.description().contains("fail")) {
+        if (form.description() != null && form.description().contains("fail")) {
             throw new RuntimeException("This is an unexpected error!"); // Used for testing the client side error handler
         }
 

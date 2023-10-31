@@ -13,10 +13,7 @@ import java.time.LocalTime;
 // on the client side. The fields are actually required, but I'm dealing with the validation manually both
 // on the client and the server side.
 public record WorkLogEntryFormDTO(
-        // If I don't include the Spring @Nullable annotation,
-        // IntelliJ IDEA will complain. If I don't include the Hilla @Nullable annotation,
-        // I will get incorrect TypeScript.
-        @Nullable @org.springframework.lang.Nullable Long id,
+        @Nullable Long id,
         @Nullable Long projectId,
         @Nullable Long contractId,
         @Nullable LocalDate date,
