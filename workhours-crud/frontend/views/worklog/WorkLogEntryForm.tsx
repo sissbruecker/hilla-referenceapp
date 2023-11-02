@@ -5,7 +5,7 @@ import {DatePicker} from "@hilla/react-components/DatePicker";
 import {TimePicker} from "@hilla/react-components/TimePicker";
 import {useFormPart, UseFormResult} from "@hilla/react-form";
 import {useEffect, useState} from "react";
-import {handleTechnicalError} from "Frontend/components/ErrorHandler";
+import {useErrorHandler} from "Frontend/util/ErrorHandler";
 import {NotBlank, NotNull} from "@hilla/form";
 import {LocalTime} from "Frontend/types/LocalTime";
 import {Duration} from "Frontend/types/Duration";
@@ -26,6 +26,7 @@ interface TimeEntryFormProps {
 }
 
 export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
+    const errorHandler = useErrorHandler();
     const [projects, setProjects] = useState<ProjectReference[]>([]);
     const [contracts, setContracts] = useState<ContractReference[]>([]);
     const [categories, setCategories] = useState<HourCategoryReference[]>([]);
@@ -59,7 +60,7 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
 
         WorkLog.findProjects()
             .then((data) => setProjects(data))
-            .catch((error) => handleTechnicalError(error, "An error occurred while retrieving projects."));
+            .catch((error) => errorHandler.handleTechnicalError(error, "An error occurred while retrieving projects."));
     }, []);
 
     // Populate the contract combo box when selecting a project
@@ -68,7 +69,7 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
         if (value.projectId != null) {
             WorkLog.findContractsByProject(value.projectId)
                 .then((data) => setContracts(data))
-                .catch((error) => handleTechnicalError(error, "An error occurred while retrieving contracts."));
+                .catch((error) => errorHandler.handleTechnicalError(error, "An error occurred while retrieving contracts."));
             setContractHelper("");
         } else {
             setContracts([]);
@@ -82,7 +83,7 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
         if (value.contractId != null) {
             WorkLog.findHourCategoriesByContract(value.contractId)
                 .then((data) => setCategories(data))
-                .catch((error) => handleTechnicalError(error, "An error occurred while retrieving hour categories."));
+                .catch((error) => errorHandler.handleTechnicalError(error, "An error occurred while retrieving hour categories."));
             setCategoryHelper("");
         } else {
             setCategories([]);
@@ -124,7 +125,7 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
                     const duration = Duration.ofSeconds(durationInSeconds);
                     setDurationHelper("This entry contains " + formatDuration(duration) + " of work.");
                 })
-                .catch((error) => handleTechnicalError(error, "An error occurred while calculating the work duration"));
+                .catch((error) => errorHandler.handleTechnicalError(error, "An error occurred while calculating the work duration"));
         } else {
             setDurationHelper("");
             setEndTimeHelper("");

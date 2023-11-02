@@ -6,7 +6,7 @@ import {ComboBox} from "@hilla/react-components/ComboBox";
 import {DatePicker} from "@hilla/react-components/DatePicker";
 import WorkLogEntryDrawer from "Frontend/views/worklog/WorkLogEntryDrawer";
 import {useEffect, useState} from "react";
-import {handleTechnicalError} from "Frontend/components/ErrorHandler";
+import {useErrorHandler} from "Frontend/util/ErrorHandler";
 import ProjectReference
     from "Frontend/generated/org/vaadin/referenceapp/workhours/adapter/hilla/worklog/ProjectReference";
 import ContractReference
@@ -20,7 +20,7 @@ import WorkLogEntryFormDTO
     from "Frontend/generated/org/vaadin/referenceapp/workhours/adapter/hilla/worklog/WorkLogEntryFormDTO";
 
 export default function WorkLogView() {
-
+    const errorHandler = useErrorHandler();
     const [projects, setProjects] = useState<ProjectReference[]>([]);
     const [contracts, setContracts] = useState<ContractReference[]>([]);
     const [selection, setSelection] = useState<WorkLogListEntryDTO[]>([]);
@@ -31,7 +31,7 @@ export default function WorkLogView() {
     useEffect(() => {
         WorkLog.findProjects()
             .then((data) => setProjects(data))
-            .catch((error) => handleTechnicalError(error, "An error occurred while retrieving projects."));
+            .catch((error) => errorHandler.handleTechnicalError(error, "An error occurred while retrieving projects."));
     }, []); // TODO Populate other combo boxes as well
 
     // TODO Apply filters

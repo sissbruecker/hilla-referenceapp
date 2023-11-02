@@ -3,7 +3,7 @@ import {Button} from "@hilla/react-components/Button.js";
 import {HorizontalLayout} from "@hilla/react-components/HorizontalLayout";
 import {VerticalLayout} from "@hilla/react-components/VerticalLayout";
 import {useForm} from "@hilla/react-form";
-import {handleTechnicalError} from "Frontend/components/ErrorHandler";
+import {useErrorHandler} from "Frontend/util/ErrorHandler";
 import {useEffect, useState} from "react";
 import WorkLogEntryFormDTO
     from "Frontend/generated/org/vaadin/referenceapp/workhours/adapter/hilla/worklog/WorkLogEntryFormDTO";
@@ -19,6 +19,7 @@ interface WorkLogDrawerProps {
 }
 
 export default function WorkLogEntryDrawer({className, workLogEntryId, onCancel, onSave}: WorkLogDrawerProps) {
+    const errorHandler = useErrorHandler();
     const [isNew, setNew] = useState(true);
 
     const form = useForm(WorkLogEntryFormDTOModel, {
@@ -29,7 +30,7 @@ export default function WorkLogEntryDrawer({className, workLogEntryId, onCancel,
                     onSave(saved);
                 }
             } catch (error) {
-                handleTechnicalError(error, "Error saving work log entry");
+                errorHandler.handleTechnicalErrorWithRetry(error, "Error saving work log entry", () => form.submit());
             }
         }
     });
@@ -44,7 +45,7 @@ export default function WorkLogEntryDrawer({className, workLogEntryId, onCancel,
                     form.read(value);
                     setNew(false);
                 })
-                .catch((error) => handleTechnicalError(error, "Error loading work log entry"));
+                .catch((error) => errorHandler.handleTechnicalError(error, "Error loading work log entry"));
         }
     }, [workLogEntryId]);
 
