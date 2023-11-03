@@ -1,10 +1,10 @@
 package org.vaadin.referenceapp.workhours.adapter.hilla.worklog;
 
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.BrowserCallable;
 import dev.hilla.Nullable;
 import dev.hilla.crud.ListService;
 import dev.hilla.crud.filter.Filter;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.data.domain.Pageable;
 import org.vaadin.referenceapp.workhours.domain.model.*;
 
@@ -15,7 +15,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 @BrowserCallable
-@AnonymousAllowed // TODO Protect this service
+@PermitAll // TODO Protect this service with roles
 @SuppressWarnings("unused") // Otherwise IntelliJ IDEA will complain
 class WorkLog implements ListService<WorkLogListEntryDTO> {
 

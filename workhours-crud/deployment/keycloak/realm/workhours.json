@@ -1,0 +1,62 @@
+{
+  "realm": "workhours",
+  "enabled": true,
+  "users": [
+    {
+      "username": "bill.lumbergh",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password123!"
+        }
+      ],
+      "realmRoles": [
+        "manager"
+      ]
+    },
+    {
+      "username": "peter.gibbons",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password123!"
+        }
+      ],
+      "realmRoles": [
+        "employee"
+      ]
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "employee",
+        "description": "Employee privileges"
+      },
+      {
+        "name": "manager",
+        "description": "Manager privileges"
+      }
+    ]
+  },
+  "defaultRoles": [
+    "employee"
+  ],
+  "clients": [
+    {
+      "clientId": "workhours-crud",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "2f17616f7bc3c6bd9a3abe401db75c8ac88ede32eeee7f41fbee1dffae19b273",
+      "redirectUris": [
+        "https://localhost:8443/login/oauth2/code/keycloak"
+      ],
+      "webOrigins": [
+        "https://localhost:8443"
+      ],
+      "protocol": "openid-connect"
+    }
+  ]
+}

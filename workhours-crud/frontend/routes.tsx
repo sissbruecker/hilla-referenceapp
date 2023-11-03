@@ -1,21 +1,24 @@
 import MainLayout from 'Frontend/views/MainLayout.js';
 import WorkLogEntryDrawer from "Frontend/views/worklog/WorkLogEntryDrawer";
 import {lazy} from 'react';
-import {createBrowserRouter, RouteObject} from 'react-router-dom';
+import {createBrowserRouter, IndexRouteObject, NonIndexRouteObject} from 'react-router-dom';
 import WorkLogView from "Frontend/views/worklog/WorkLogView";
+import {AccessProps, protectRoutes} from "@hilla/sso-kit-client-react";
+
+export type ViewRouteObject = (IndexRouteObject | NonIndexRouteObject) & AccessProps;
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
-export const routes = [
+export const routes: ViewRouteObject[] = protectRoutes([
     {
         element: <MainLayout/>,
         handle: {title: 'Main'},
         children: [
             {path: '/about', element: <AboutView/>, handle: {title: 'About'}},
             {path: '/entry', element: <WorkLogEntryDrawer/>, handle: {title: 'Time Entry'}},
-            {path: '/workhours', element: <WorkLogView/>, handle: {title: "Workhours"}}
+            {path: '/workhours', element: <WorkLogView/>, handle: {title: "Workhours"}, requireAuthentication: true}
         ],
     },
-] as RouteObject[];
+]);
 
 export default createBrowserRouter(routes);
