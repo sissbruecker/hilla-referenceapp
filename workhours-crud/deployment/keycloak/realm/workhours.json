@@ -4,6 +4,8 @@
   "users": [
     {
       "username": "bill.lumbergh",
+      "firstName": "Bill",
+      "lastName": "Lumbergh",
       "enabled": true,
       "credentials": [
         {
@@ -12,11 +14,14 @@
         }
       ],
       "realmRoles": [
-        "manager"
+        "manager",
+        "default-roles-workhours"
       ]
     },
     {
       "username": "peter.gibbons",
+      "firstName": "Peter",
+      "lastName": "Gibbons",
       "enabled": true,
       "credentials": [
         {
@@ -25,7 +30,7 @@
         }
       ],
       "realmRoles": [
-        "employee"
+        "default-roles-workhours"
       ]
     }
   ],
