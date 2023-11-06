@@ -75,7 +75,8 @@
     "@hilla/generator-typescript-plugin-subtypes": "$@hilla/generator-typescript-plugin-subtypes",
     "@hilla/react-crud": "$@hilla/react-crud",
     "@hilla/generator-typescript-plugin-backbone": "$@hilla/generator-typescript-plugin-backbone",
-    "@hilla/generator-typescript-cli": "$@hilla/generator-typescript-cli"
+    "@hilla/generator-typescript-cli": "$@hilla/generator-typescript-cli",
+    "@hilla/sso-kit-client-react": "$@hilla/sso-kit-client-react"
   },
   "vaadin": {
     "dependencies": {
@@ -118,6 +119,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "738e31a8a66b575319d9becc84875fbc6ae6de70e8a881748284ad6db05f2c63"
+    "hash": "d149d9c2481be682101d4bdad5acff09eb666a15c60ce903d5048651869962e0"
   }
 }
