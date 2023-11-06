@@ -11,8 +11,8 @@ This directory contains the following files:
 - *keycloak.localhost.crt* - the certificate for Keycloak
 - *keycloak.localhost.key* - the private key for Keycloak
 - *keycloak.localhost.p12* - the P12 keystore for Keycloak (pass phrase: `8b2582a72ab63061b8ae516f2b7048d1`)
-- *truststore.p12* - a P12 keystore containing only the public CA certificate (pass
-  phrase: `65f620b3fee2ef49457de721317d2e02`)
+- *truststore.p12* - a P12 keystore containing only the public CA certificate and a copy of *cacerts* (pass
+  phrase: `changeit`)
 - *workhours.localhost.crt* - the certificate for the Workhours application
 - *workhours.localhost.key* - the private key for the Workhours application
 - *workhours.localhost.p12* - the P12 keystore for the Workhours application (pass
