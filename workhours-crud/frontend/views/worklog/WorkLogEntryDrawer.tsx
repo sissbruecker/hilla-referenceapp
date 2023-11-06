@@ -10,6 +10,7 @@ import WorkLogEntryFormDTO
 import WorkLogEntryFormDTOModel
     from "Frontend/generated/org/vaadin/referenceapp/workhours/adapter/hilla/worklog/WorkLogEntryFormDTOModel";
 import {WorkLog} from "Frontend/generated/endpoints";
+import OnlineOnly from "Frontend/components/OnlineOnly";
 
 interface WorkLogDrawerProps {
     className?: string;
@@ -56,13 +57,15 @@ export default function WorkLogEntryDrawer({className, workLogEntryId, onCancel,
 
     return (
         <VerticalLayout className={className} theme={"padding spacing"}>
-            <h1 className={"text-xl text-header"}>{isNew ? "Add Work" : "Edit Work"}</h1>
-            <WorkLogEntryForm form={form}></WorkLogEntryForm>
-            <HorizontalLayout theme={"spacing"}>
-                <Button theme={"primary"} style={{flexGrow: 1}} onClick={form.submit}
-                        disabled={form.invalid}>{isNew ? "Add Work" : "Update Work"}</Button>
-                <Button style={{flexGrow: 1}} onClick={onCancel}>Cancel</Button>
-            </HorizontalLayout>
+            <OnlineOnly fallback={<p>You have to be online to add or edit work.</p>}>
+                <h1 className={"text-xl text-header"}>{isNew ? "Add Work" : "Edit Work"}</h1>
+                <WorkLogEntryForm form={form}></WorkLogEntryForm>
+                <HorizontalLayout theme={"spacing"}>
+                    <Button theme={"primary"} style={{flexGrow: 1}} onClick={form.submit}
+                            disabled={form.invalid}>{isNew ? "Add Work" : "Update Work"}</Button>
+                    <Button style={{flexGrow: 1}} onClick={onCancel}>Cancel</Button>
+                </HorizontalLayout>
+            </OnlineOnly>
         </VerticalLayout>
     );
 }
