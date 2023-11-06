@@ -95,10 +95,13 @@
                         -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5247
                         -Djavax.net.ssl.trustStore=${basedir}/deployment/dev-certs/truststore.p12
                         -Djavax.net.ssl.trustStoreType=PKCS12
-                        -Djavax.net.ssl.trustStorePassword=65f620b3fee2ef49457de721317d2e02
+                        -Djavax.net.ssl.trustStorePassword=changeit
                     </jvmArguments>
                     <wait>500</wait>
                     <maxAttempts>240</maxAttempts>
+                    <profiles>
+                        <profile>dev</profile>
+                    </profiles>
                 </configuration>
             </plugin>
 

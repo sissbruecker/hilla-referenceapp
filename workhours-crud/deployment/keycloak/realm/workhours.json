@@ -56,10 +56,12 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "2f17616f7bc3c6bd9a3abe401db75c8ac88ede32eeee7f41fbee1dffae19b273",
       "redirectUris": [
-        "https://localhost:8443/login/oauth2/code/keycloak"
+        "https://localhost:8443/login/oauth2/code/keycloak",
+        "http://localhost:8080/login/oauth2/code/keycloak"
       ],
       "webOrigins": [
-        "https://localhost:8443"
+        "https://localhost:8443",
+        "http://localhost:8080"
       ],
       "protocol": "openid-connect"
     }
