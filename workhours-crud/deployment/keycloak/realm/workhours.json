@@ -6,6 +6,7 @@
       "username": "bill.lumbergh",
       "firstName": "Bill",
       "lastName": "Lumbergh",
+      "email": "bill.lumbergh@initech.invalid",
       "enabled": true,
       "credentials": [
         {
@@ -16,12 +17,16 @@
       "realmRoles": [
         "manager",
         "default-roles-workhours"
-      ]
+      ],
+      "attributes": {
+        "picture": "https://static.wikia.nocookie.net/officespace/images/a/a1/Meme.jpeg"
+      }
     },
     {
       "username": "peter.gibbons",
       "firstName": "Peter",
       "lastName": "Gibbons",
+      "email": "peter.gibbons@initech.invalid",
       "enabled": true,
       "credentials": [
         {
@@ -31,7 +36,10 @@
       ],
       "realmRoles": [
         "default-roles-workhours"
-      ]
+      ],
+      "attributes": {
+        "picture": "https://static.wikia.nocookie.net/officespace/images/c/cb/Peter.PNG"
+      }
     }
   ],
   "roles": {
@@ -66,7 +74,23 @@
         "backchannel.logout.url": "http://host.docker.internal:8080/logout/back-channel/keycloak",
         "backchannel.logout.session.required": "true"
       },
-      "protocol": "openid-connect"
+      "protocol": "openid-connect",
+      "protocolMappers": [
+        {
+          "name": "Picture URL",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "picture",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "picture",
+            "jsonType.label": "String"
+          }
+        }
+      ]
     }
   ]
 }
