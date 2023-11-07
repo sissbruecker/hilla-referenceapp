@@ -59,7 +59,7 @@
   ],
   "clients": [
     {
-      "clientId": "workhours-crud",
+      "clientId": "workhours-crud-dev",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "2f17616f7bc3c6bd9a3abe401db75c8ac88ede32eeee7f41fbee1dffae19b273",
@@ -72,6 +72,40 @@
       "attributes": {
         "post.logout.redirect.uris": "http://localhost:8080",
         "backchannel.logout.url": "http://host.docker.internal:8080/logout/back-channel/keycloak",
+        "backchannel.logout.session.required": "true"
+      },
+      "protocol": "openid-connect",
+      "protocolMappers": [
+        {
+          "name": "Picture URL",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "picture",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "picture",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "workhours-crud-prod",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "9fe98cce548e55d76e36f5297030cfc30b7aac76e6e6872d783a2cfe08dc45f9",
+      "redirectUris": [
+        "https://localhost:8443/login/oauth2/code/keycloak"
+      ],
+      "webOrigins": [
+        "https://localhost:8443"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "https://localhost:8443",
+        "backchannel.logout.url": "https://host.docker.internal:8443/logout/back-channel/keycloak",
         "backchannel.logout.session.required": "true"
       },
       "protocol": "openid-connect",
