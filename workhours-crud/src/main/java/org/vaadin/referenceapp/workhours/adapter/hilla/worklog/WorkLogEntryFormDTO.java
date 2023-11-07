@@ -3,7 +3,9 @@ package org.vaadin.referenceapp.workhours.adapter.hilla.worklog;
 
 import dev.hilla.Nullable;
 import org.vaadin.referenceapp.workhours.domain.model.WorkLogEntry;
+import org.vaadin.referenceapp.workhours.domain.primitives.UserId;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -20,7 +22,11 @@ public record WorkLogEntryFormDTO(
         @Nullable LocalTime startTime,
         @Nullable LocalTime endTime,
         @Nullable String description,
-        @Nullable Long hourCategoryId
+        @Nullable Long hourCategoryId,
+        @Nullable String createdBy,
+        @Nullable Instant createdOn,
+        @Nullable String modifiedBy,
+        @Nullable Instant modifiedOn
 ) {
 
     static WorkLogEntryFormDTO fromEntity(WorkLogEntry entity) {
@@ -31,7 +37,11 @@ public record WorkLogEntryFormDTO(
                 entity.getDate(), entity.getStartTime(),
                 entity.getEndTime(),
                 entity.getDescription(),
-                entity.getHourCategory().nullSafeId()
+                entity.getHourCategory().nullSafeId(),
+                entity.getCreatedBy().map(UserId::toString).orElse(null),
+                entity.getCreatedOn().orElse(null),
+                entity.getModifiedBy().map(UserId::toString).orElse(null),
+                entity.getModifiedOn().orElse(null)
         );
     }
 }

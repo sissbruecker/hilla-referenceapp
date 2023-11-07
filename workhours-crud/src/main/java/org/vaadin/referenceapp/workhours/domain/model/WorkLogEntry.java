@@ -1,14 +1,14 @@
 package org.vaadin.referenceapp.workhours.domain.model;
 
 import jakarta.persistence.*;
-import org.vaadin.referenceapp.workhours.domain.base.BaseEntity;
+import org.vaadin.referenceapp.workhours.domain.base.BaseAuditedEntity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "time_entries")
-public class WorkLogEntry extends BaseEntity<Long> {
+public class WorkLogEntry extends BaseAuditedEntity<Long> {
     @JoinColumn(name = "project_id", nullable = false)
     @ManyToOne(optional = false)
     private Project project;

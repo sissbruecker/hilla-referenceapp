@@ -40,6 +40,28 @@
       "attributes": {
         "picture": "https://static.wikia.nocookie.net/officespace/images/c/cb/Peter.PNG"
       }
+    },
+    {
+      "username": "service-account-workhours-crud-dev",
+      "enabled": true,
+      "serviceAccountClientId": "workhours-crud-dev",
+      "credentials": [],
+      "clientRoles": {
+        "realm-management": [
+          "view-users"
+        ]
+      }
+    },
+    {
+      "username": "service-account-workhours-crud-prod",
+      "enabled": true,
+      "serviceAccountClientId": "workhours-crud-prod",
+      "credentials": [],
+      "clientRoles": {
+        "realm-management": [
+          "view-users"
+        ]
+      }
     }
   ],
   "roles": {
@@ -62,6 +84,8 @@
       "clientId": "workhours-crud-dev",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
+      "serviceAccountsEnabled": true,
+      "fullScopeAllowed": true,
       "secret": "2f17616f7bc3c6bd9a3abe401db75c8ac88ede32eeee7f41fbee1dffae19b273",
       "redirectUris": [
         "http://localhost:8080/login/oauth2/code/keycloak"
@@ -96,6 +120,8 @@
       "clientId": "workhours-crud-prod",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
+      "serviceAccountsEnabled": true,
+      "fullScopeAllowed": true,
       "secret": "9fe98cce548e55d76e36f5297030cfc30b7aac76e6e6872d783a2cfe08dc45f9",
       "redirectUris": [
         "https://localhost:8443/login/oauth2/code/keycloak"

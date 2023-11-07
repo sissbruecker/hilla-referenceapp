@@ -11,6 +11,7 @@ import WorkLogEntryFormDTOModel
     from "Frontend/generated/org/vaadin/referenceapp/workhours/adapter/hilla/worklog/WorkLogEntryFormDTOModel";
 import {WorkLog} from "Frontend/generated/endpoints";
 import OnlineOnly from "Frontend/components/OnlineOnly";
+import AuditingInformation from "Frontend/components/AuditingInformation";
 
 interface WorkLogDrawerProps {
     className?: string;
@@ -54,12 +55,18 @@ export default function WorkLogEntryDrawer({className, workLogEntryId, onCancel,
     // TODO Prefill today's date and the current time
     // TODO Read-only support
     // TODO Prompt on unsaved changes
+    // TODO Create audit information component
+    // TODO Create advanced date and time formatter (xx ago)
 
     return (
         <VerticalLayout className={className} theme={"padding spacing"}>
             <OnlineOnly fallback={<p>You have to be online to add or edit work.</p>}>
                 <h1 className={"text-xl text-header"}>{isNew ? "Add Work" : "Edit Work"}</h1>
                 <WorkLogEntryForm form={form}></WorkLogEntryForm>
+                <AuditingInformation createdBy={form.value.createdBy}
+                                     createdDate={form.value.createdOn}
+                                     lastModifiedBy={form.value.modifiedBy}
+                                     lastModifiedDate={form.value.modifiedOn}/>
                 <HorizontalLayout theme={"spacing"}>
                     <Button theme={"primary"} style={{flexGrow: 1}} onClick={form.submit}
                             disabled={form.invalid}>{isNew ? "Add Work" : "Update Work"}</Button>

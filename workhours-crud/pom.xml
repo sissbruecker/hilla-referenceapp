@@ -14,6 +14,7 @@
         <java.version>17</java.version>
         <hilla.version>2.3.2</hilla.version>
         <sso-kit.version>2.1.0</sso-kit.version>
+        <keycloak-admin-client.version>21.1.1</keycloak-admin-client.version>
     </properties>
 
     <parent>
@@ -49,6 +50,11 @@
             <version>${sso-kit.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>${keycloak-admin-client.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.parttio</groupId>
