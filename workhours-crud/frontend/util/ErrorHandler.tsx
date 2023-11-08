@@ -1,4 +1,4 @@
-import React, {createContext, Key, PropsWithChildren, useContext, useReducer, useState} from "react";
+import React, {createContext, Key, PropsWithChildren, useContext, useEffect, useReducer, useState} from "react";
 import {Button} from "@hilla/react-components/Button";
 import {Notification} from "@hilla/react-components/Notification";
 import {HorizontalLayout} from "@hilla/react-components/HorizontalLayout";
@@ -123,9 +123,12 @@ export function ErrorHandlerProvider(props: PropsWithChildren) {
     const elements = errors.map(error => <ErrorNotificationElement notification={error} dispatch={dispatch}
                                                                    key={error.id}/>);
 
-    setInterval(() => {
-        dispatch({name: ErrorNotificationActionName.CLEANUP});
-    }, 1000);
+    useEffect(() => {
+        const handle = setInterval(() => {
+            dispatch({name: ErrorNotificationActionName.CLEANUP});
+        }, 1000);
+        return () => clearInterval(handle);
+    }, []);
 
     return (
         <ErrorDispatchContext.Provider value={dispatch}>
