@@ -1,5 +1,5 @@
-import React, {PropsWithChildren, useContext} from "react";
-import {OfflineContext, OfflineState} from "Frontend/util/OfflineContext";
+import React, {PropsWithChildren} from "react";
+import {useConnectionStatus} from "Frontend/util/ConnectionStatus";
 
 export interface OnlineOnlyProps {
     /**
@@ -16,9 +16,9 @@ export interface OnlineOnlyProps {
  */
 export default function OnlineOnly(props: PropsWithChildren<OnlineOnlyProps>) {
     const {fallback, children} = props;
-    const offlineContext = useContext(OfflineContext);
+    const {offline} = useConnectionStatus();
 
-    if (offlineContext === OfflineState.OFFLINE) {
+    if (offline) {
         if (fallback) {
             return <>{fallback}</>;
         } else {
