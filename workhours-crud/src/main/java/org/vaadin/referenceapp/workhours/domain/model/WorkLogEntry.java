@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "time_entries")
+@Table(name = "work_log_entries")
 public class WorkLogEntry extends BaseAuditedEntity<Long> {
     @JoinColumn(name = "project_id", nullable = false)
     @ManyToOne(optional = false)

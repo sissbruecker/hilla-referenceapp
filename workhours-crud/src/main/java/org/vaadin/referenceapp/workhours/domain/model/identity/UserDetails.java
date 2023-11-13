@@ -1,6 +1,6 @@
 package org.vaadin.referenceapp.workhours.domain.model.identity;
 
-import org.h2.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 import org.vaadin.referenceapp.workhours.domain.base.IdentifiableDomainObject;
 import org.vaadin.referenceapp.workhours.domain.primitives.EmailAddress;
@@ -54,10 +54,10 @@ public final class UserDetails implements IdentifiableDomainObject<UserId> {
 
     public String displayName() {
         var sb = new StringBuilder();
-        if (!StringUtils.isNullOrEmpty(firstName)) {
+        if (!StringUtils.isEmpty(firstName)) {
             sb.append(firstName);
         }
-        if (!StringUtils.isNullOrEmpty(lastName)) {
+        if (!StringUtils.isEmpty(lastName)) {
             if (!sb.isEmpty()) {
                 sb.append(" ");
             }
