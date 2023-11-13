@@ -43,12 +43,12 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
         {minWidth: '500px', columns: 4},
     ];
 
-    const projectField = useFormPart(model.projectId);
-    const contractField = useFormPart(model.contractId);
+    const projectField = useFormPart(model.project);
+    const contractField = useFormPart(model.contract);
     const dateField = useFormPart(model.date);
     const startTimeField = useFormPart(model.startTime);
     const endTimeField = useFormPart(model.endTime);
-    const hourCategoryField = useFormPart(model.hourCategoryId);
+    const hourCategoryField = useFormPart(model.hourCategory);
 
     useEffect(() => {
         projectField.addValidator(new NotNull({message: "Please select a project."}));
@@ -66,8 +66,8 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
     // Populate the contract combo box when selecting a project
 
     useEffect(() => {
-        if (value.projectId != null) {
-            WorkLog.findContractsByProject(value.projectId)
+        if (value.project != null) {
+            WorkLog.findContractsByProject(value.project.id)
                 .then((data) => setContracts(data))
                 .catch((error) => errorHandler.handleTechnicalError(error, "An error occurred while retrieving contracts."));
             setContractHelper("");
@@ -75,13 +75,13 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
             setContracts([]);
             setContractHelper("You have to select a project before you can select a contract.");
         }
-    }, [value.projectId]);
+    }, [value.project?.id]);
 
     // Populate the hour category combo box when selecting a contract
 
     useEffect(() => {
-        if (value.contractId != null) {
-            WorkLog.findHourCategoriesByContract(value.contractId)
+        if (value.contract != null) {
+            WorkLog.findHourCategoriesByContract(value.contract.id)
                 .then((data) => setCategories(data))
                 .catch((error) => errorHandler.handleTechnicalError(error, "An error occurred while retrieving hour categories."));
             setCategoryHelper("");
@@ -89,24 +89,24 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
             setCategories([]);
             setCategoryHelper("You have to select a contract before you can select an hour category.");
         }
-    }, [value.contractId]);
+    }, [value.contract?.id]);
 
     // Clear the combo boxes if their values are not among the items (this is something that IMO should be handled by the combo box automatically).
 
     useEffect(() => {
-        if (value.projectId != null && !projects.find((p) => p.id === value.projectId)) {
+        if (value.project != null && !projects.find((p) => p.id === value.project?.id)) {
             projectField.setValue(undefined);
         }
     }, [projects]);
 
     useEffect(() => {
-        if (value.contractId != null && !contracts.find((c) => c.id === value.contractId)) {
+        if (value.contract != null && !contracts.find((c) => c.id === value.contract?.id)) {
             contractField.setValue(undefined);
         }
     }, [contracts]);
 
     useEffect(() => {
-        if (value.hourCategoryId != null && !categories.find((c) => c.id === value.hourCategoryId)) {
+        if (value.hourCategory != null && !categories.find((c) => c.id === value.hourCategory?.id)) {
             hourCategoryField.setValue(undefined);
         }
     }, [categories]);
@@ -136,18 +136,20 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
         <FormLayout responsiveSteps={responsiveSteps}>
             <ComboBox
                 {...{colspan: 2}}
-                {...field(model.projectId)}
+                {...field(model.project)}
                 label={"Project"}
                 items={projects}
                 itemLabelPath={"name"}
+                itemIdPath={"id"}
                 itemValuePath={"id"}/>
             <ComboBox
                 {...{colspan: 2}}
-                {...field(model.contractId)}
+                {...field(model.contract)}
                 label={"Contract"}
                 helperText={contractHelper}
                 items={contracts}
                 itemLabelPath={"name"}
+                itemIdPath={"id"}
                 itemValuePath={"id"}
             />
             <DatePicker
@@ -170,11 +172,12 @@ export default function WorkLogEntryForm({form}: TimeEntryFormProps) {
                 label={"Description"}/>
             <ComboBox
                 {...{colspan: 4}}
-                {...field(model.hourCategoryId)}
+                {...field(model.hourCategory)}
                 label={"Category"}
                 helperText={categoryHelper}
                 items={categories}
                 itemLabelPath={"name"}
+                itemIdPath={"id"}
                 itemValuePath={"id"}/>
         </FormLayout>
     )

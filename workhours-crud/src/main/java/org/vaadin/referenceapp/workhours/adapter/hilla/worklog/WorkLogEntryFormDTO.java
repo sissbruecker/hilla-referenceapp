@@ -16,13 +16,13 @@ import java.time.LocalTime;
 // on the client and the server side.
 public record WorkLogEntryFormDTO(
         @Nullable Long id,
-        @Nullable Long projectId,
-        @Nullable Long contractId,
+        @Nullable ProjectReference project,
+        @Nullable ContractReference contract,
         @Nullable LocalDate date,
         @Nullable LocalTime startTime,
         @Nullable LocalTime endTime,
         @Nullable String description,
-        @Nullable Long hourCategoryId,
+        @Nullable HourCategoryReference hourCategory,
         @Nullable String createdBy,
         @Nullable Instant createdOn,
         @Nullable String modifiedBy,
@@ -32,12 +32,12 @@ public record WorkLogEntryFormDTO(
     static WorkLogEntryFormDTO fromEntity(WorkLogEntry entity) {
         return new WorkLogEntryFormDTO(
                 entity.nullSafeId(),
-                entity.getProject().nullSafeId(),
-                entity.getContract().nullSafeId(),
+                ProjectReference.fromEntity(entity.getProject()),
+                ContractReference.fromEntity(entity.getContract()),
                 entity.getDate(), entity.getStartTime(),
                 entity.getEndTime(),
                 entity.getDescription(),
-                entity.getHourCategory().nullSafeId(),
+                HourCategoryReference.fromEntity(entity.getHourCategory()),
                 entity.getCreatedBy().map(UserId::toString).orElse(null),
                 entity.getCreatedOn().orElse(null),
                 entity.getModifiedBy().map(UserId::toString).orElse(null),

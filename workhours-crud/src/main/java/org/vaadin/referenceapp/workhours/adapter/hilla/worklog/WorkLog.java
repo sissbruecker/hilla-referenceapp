@@ -71,9 +71,9 @@ class WorkLog implements ListService<WorkLogListEntryDTO> {
             entity = timeEntryRepository.getById(form.id());
             // TODO Optimistic locking or versioning
         }
-        entity.setProject(projectRepository.getById(form.projectId()));
-        entity.setContract(contractRepository.getById(form.contractId()));
-        entity.setHourCategory(hourCategoryRepository.getById(form.hourCategoryId()));
+        entity.setProject(projectRepository.getById(form.project().id()));
+        entity.setContract(contractRepository.getById(form.contract().id()));
+        entity.setHourCategory(hourCategoryRepository.getById(form.hourCategory().id()));
         entity.setDate(form.date());
         entity.setStartTime(form.startTime());
         entity.setEndTime(form.endTime());
